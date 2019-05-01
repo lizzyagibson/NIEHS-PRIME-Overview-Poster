@@ -1,0 +1,147 @@
+\documentclass[12pt]{report}
+\usepackage{verbatim}
+\usepackage{tikz,times}
+\usepackage[paperwidth=30in,paperheight=30in,left=1cm,top=1cm]{geometry}
+\usepackage[12pt]{moresize}
+\usetikzlibrary{mindmap,backgrounds}
+\pagestyle{empty}
+   
+   
+\definecolor{darkorange}{rgb}{1.0, 0.35, 0.0}   
+\definecolor{darkgreen}{rgb}{0.0, 0.44, 0.0}
+
+\begin{document}
+
+
+\begin{tikzpicture}[scale = 1.5, huge mindmap, grow cyclic,
+  every node/.style = concept,
+  remember picture, overlay, shift = {(current page.center)},
+  %This line centers the coordinates (0,0) on the center of the page
+  root concept/.append style = {font = \HUGE},
+  level 1 concept/.append style = {font = \LARGE},
+  level 2 concept/.append style = {font = \LARGE},
+  every extra concept/.style = {font = \Huge}]
+  %These lines make text bigger
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  % Toxic Agent Identification
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{scope}[mindmap, concept color = orange, text = darkorange,
+  %Set overall text color here and change it in individual nodes.
+  level 1 concept/.append style = {level distance = 225, sibling angle = 40},
+  level 2 concept/.append style = {level distance = 150, sibling angle = 50}]
+  %These adjust the length of the connection and the angle between child nodes.
+        \node [concept, text = white] at (-3,3.5) {Toxic Agent Identification}[clockwise from = 170]
+    %Made the root node smaller
+    % at (#,#) positions the map on the page
+    %Clockwise positions the child nodes, as far as I can tell, 0 is an absolute location at directly right no matter the level, clockwise actually means counterclockwise, and the number is degrees out of 360.
+      child [concept color = orange!20] {node (bkmr) [concept, scale = 1.28] {BKMR}}
+      child {node [concept, text = white, scale = 1.5] {Penalized Methods} [clockwise from = 180]
+        child [concept color = orange!20] {node (lasso) [concept, scale = 1.28] {Lasso}}
+        %orange!50 fades the color
+        %they all need a label in () after node if we want to refer to them later
+        child [concept color = orange!20] {node [concept, scale = 1.28] {Elastic Net}}
+        child [concept color = orange!20] {node (wqs) [concept, scale = 1.28] {WQS}}}
+      child [concept color = orange!20] {node [concept, scale = 1.28] (cod) {SEM}};
+        \end{scope}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % Overall Effect Estimation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{scope}[mindmap, concept color=violet, text = violet,
+  level 1 concept/.append style = {level distance = 225, sibling angle = 32},
+  level 2 concept/.append style = {level distance = 150, sibling angle = 30}]
+    \node [concept, text = white] at (3.5,3) {Overall Effect Estimation} [clockwise from = 103]
+    % child {node [concept, text=white] {Latent Category} [clockwise from = 120]
+    %     child [concept color = violet!50] {node [concept] {\large Bayesian Hierarchical Models}}
+    %     child [concept color = violet!50] {node [concept] {BKMR}}
+    %     child [concept color = violet!50] {node [concept] {SEM}}}
+    %   child [concept color = violet!50] {node [concept, scale = 0.77] {WQS}};
+        child [concept color = violet!20] {node (teq) [concept, scale = 1.28] {{Toxic Equivalency}}}
+       child [concept color = violet!20] {node [concept, scale = 1.28] {BKMR}}        
+       child [concept color = violet!20] {node [concept, scale = 1.28] {WQS}}
+       child [concept color = violet!20] {node [concept, scale = 1.28] {(semi-) Bayesian Hierarchical}};
+
+    \node [extra concept, fill = yellow!80, scale=0.5, ultra thin, draw = violet!20] at (teq.north east) {unsprv};
+
+
+  \end{scope}
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % A priori Group Effect Estimation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{scope}[mindmap, concept color=red, text = red,
+  level 1 concept/.append style = {level distance = 225, sibling angle = 30},
+  level 2 concept/.append style = {level distance = 150, sibling angle = 50}]
+    \node [concept, text = white] at (-4.5,-2.5) {\textit{A priori} Defined Groups} [clockwise from = 248]
+    % child {node [concept, text=white] {Latent Category} [clockwise from = 260]
+    %     child [concept color = red!30] {node [concept] {\large Bayesian Hierarchical Models}}
+    %     child [concept color = red!30] {node [concept] {SEM}}
+    %     child [concept color = red!30] {node [concept] {Hierarchical BKMR}}}
+    child [concept color = red!20] {node [concept, scale = 1.28] {Group Lasso}}
+    child [concept color = red!20] {node [concept, scale = 1.28] {(semi-) Bayesian Hierarchical}}
+    child [concept color = red!20] {node [concept, scale = 1.28] {SEM}}
+    child [concept color = red!20] {node [concept, scale = 1.28] {Hierarchical BKMR}};
+  \end{scope}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  % Pattern Identification
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{scope}[mindmap, concept color = green!50!black, text = darkgreen, 
+  level 1 concept/.append style = {level distance = 225, sibling angle = 45},
+  level 2 concept/.append style = {level distance = 150, sibling angle = 50}]
+    \node [concept, text = white] at (5,-3) (pattern) {Pattern Identification} [clockwise from = 15]
+      child {node [concept, text = white, scale = 1.5] (med) {Clustering} [clockwise from=50]
+        child [concept color = green!45!black!20] {node [concept, scale = 1.28] {K-means}}
+        child [concept color = green!45!black!20] {node [concept, scale = 1.28] {{\Large Hierarchical Clustering}}}}
+      child {node [concept, text = white, scale = 1.5] (gen) {Dimension Reduction}
+        child [concept color = green!45!black!20] {node [concept, scale = 1.28] {PCA}}
+        child [concept color = green!45!black!20] {node [concept, scale = 1.28] {Factor Analysis}}
+        child [concept color = green!45!black!20] {node [concept, scale = 1.28] {NMF}}};
+        
+    \node [extra concept, fill = yellow!80, scale=0.5, ultra thin, draw = green!50!black] at (pattern.north east) {unsprv};
+
+  \end{scope}
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  % Nonlinearity & Interaction Estimation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{scope}[mindmap, concept color = blue, text = blue,
+  level 1 concept/.append style = {level distance = 225, sibling angle = 35},
+  level 2 concept/.append style = {level distance = 150, sibling angle = 50}]
+    \node [concept, text = white] at (0,-7) {Interactions \& Nonlinearities } [clockwise from = 340]
+      child [concept color = blue!20] {node [concept, scale = 1.28] {CART}}
+      child [concept color = blue!20] {node [concept, scale = 1.28] {Random Forests}}
+      child [concept color = blue!20] {node [concept, scale = 1.28] {ESS}}
+      child [concept color = blue!20] {node [concept, scale = 1.28] {BKMR}};
+  \end{scope}
+  
+\end{tikzpicture}
+
+% \clearpage
+
+% \begin{tikzpicture}
+%   \tikzset{venn circle/.style={circle,minimum width=5cm,fill=#1,opacity=0.6}}
+
+%   \node [venn circle = orange!50, align = left] (Toxic) at (0,0) {} ;
+%   \node [venn circle = violet!50] (Overall) at (40:3cm) {};
+%   \node [venn circle = blue!50, align = right] (Intrx) at (0:4.5cm) {};
+%   \node [venn circle = red!50] (Grp) at (-40:3cm) {};
+
+%   \node at (barycentric cs:Toxic=1/4,Overall=1/4,Intrx=1/4,Grp=1/4 ){{\color{white}\Large\bf BKMR}};
+
+%  \node[align=left] at (-0.9,0){{\color{darkorange}\bf\Large Toxic} \\ {\color{darkorange}\bf\Large Agent(s)}};
+%  \node[align=right] at (0:5.3cm){{\color{blue}\bf\Large Interaction/} \\ {\color{blue}\bf\Large Nonlinear}};
+%  \node at (51.5:3.7cm){{\color{violet}\bf\Large Overall Effect}};
+%  \node at (2.3,-2.5){{\bf \color{red}\Large Grouping}};
+ 
+%   \end{tikzpicture}
+
+
+
+\end{document}
